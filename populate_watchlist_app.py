@@ -17,9 +17,10 @@ def populate(N=5):
         fake_url = fakegen.url()
         fake_about = fakegen.sentence()
         fake_name = fakegen.company()
+        fake_bool = fakegen.boolean()
 
         # create new movie entry
-        movie = Movie.objects.get_or_create(name=fake_name, website=fake_url, about=fake_about)[0]
+        movie = Movie.objects.get_or_create(name=fake_name, website=fake_url, about=fake_about, active=fake_bool)[0]
 
 
 def create_super_user():
