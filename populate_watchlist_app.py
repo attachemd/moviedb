@@ -12,7 +12,7 @@ fakegen = Faker()
 
 
 def populate(N=5):
-    for entry in range(N):
+    for _ in range(N):
         # create fake data for entry
         fake_url = fakegen.url()
         fake_about = fakegen.sentence()
@@ -29,7 +29,7 @@ def create_super_user():
 
 
 def populate_user(N=5):
-    for i in range(N):
+    for _ in range(N):
         name = fakegen.name()
         first_name = name.split(' ')[0]
         last_name = ' '.join(name.split(' ')[-1:])
