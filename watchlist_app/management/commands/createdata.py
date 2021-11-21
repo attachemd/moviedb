@@ -1,9 +1,7 @@
 import os
 import django
+from django.core.management import BaseCommand
 from faker import Faker
-
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'moviedb.settings')
-django.setup()
 
 from django.contrib.auth.models import User
 from watchlist_app.models import Movie
@@ -43,9 +41,13 @@ def populate_user(N=5):
         user.save()
 
 
-if __name__ == '__main__':
-    print('populating script')
-    create_super_user()
-    populate(20)
-    populate_user()
-    print('populating complete')
+class Command(BaseCommand):
+    help = "Command information"
+
+    def handle(self, *args, **kwargs):
+        print("hello")
+        print('populating script')
+        create_super_user()
+        populate(20)
+        populate_user()
+        print('populating complete')
