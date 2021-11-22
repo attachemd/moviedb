@@ -4,13 +4,13 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from watchlist_app.api.serializers import MovieSerializer
-from core.models import Movie
+from core.models import WatchList
 
 
 class MovieList(APIView):
 
     def get(self, request):
-        movies = Movie.objects.all()
+        movies = WatchList.objects.all()
         serializer = MovieSerializer(
             movies,
             many=True
@@ -32,17 +32,17 @@ class MovieDetail(APIView):
 
     def get(self, request, pk):
         try:
-            movie = Movie.objects.get(pk=pk)
+            movie = WatchList.objects.get(pk=pk)
             serializer = MovieSerializer(movie)
             return Response(serializer.data)
-        except Movie.DoesNotExist:
+        except WatchList.DoesNotExist:
             return Response(
                 {'error': 'Movie not found'},
                 status=status.HTTP_404_NOT_FOUND
             )
 
     def put(self, request, pk):
-        movie = Movie.objects.get(pk=pk)
+        movie = WatchList.objects.get(pk=pk)
         serializer = MovieSerializer(
             movie,
             data=request.data
@@ -57,7 +57,7 @@ class MovieDetail(APIView):
         return Response(serializer.data)
 
     def delete(self, request, pk):
-        movie = Movie.objects.get(pk=pk)
+        movie = WatchList.objects.get(pk=pk)
         movie.delete()
         return Response(
             {'message': 'File deleted'},

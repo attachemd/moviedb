@@ -20,9 +20,9 @@ class ModelTests(TestCase):
 
     def test_tag_str(self):
         """Test the movie string representation"""
-        movie = models.Movie.objects.create(
-            name='Mayer, Steele and Frederick',
+        movie = models.WatchList.objects.create(
+            title='Mayer, Steele and Frederick',
             about='Memory produce keep score memory.',
             website='https://marshall.com/',
         )
-        self.assertEqual(str(movie), movie.name)
+        self.assertEqual(str(movie), movie.title)

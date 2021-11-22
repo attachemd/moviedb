@@ -2,7 +2,7 @@ from django.core.management import BaseCommand
 from faker import Faker
 
 from django.contrib.auth.models import User
-from core.models import Movie
+from core.models import WatchList
 
 fakegen = Faker()
 
@@ -16,7 +16,7 @@ def populate(N=5):
         fake_bool = fakegen.boolean()
 
         # create new movie entry
-        movie = Movie.objects.get_or_create(name=fake_name, website=fake_url, about=fake_about, active=fake_bool)[0]
+        movie = WatchList.objects.get_or_create(name=fake_name, website=fake_url, about=fake_about, active=fake_bool)[0]
 
 
 def create_super_user():

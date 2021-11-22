@@ -1,11 +1,11 @@
 from rest_framework import serializers
 
-from core.models import Movie
+from core.models import WatchList
 
 
 class MovieSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Movie
+        model = WatchList
         # fields = ['id', 'name', 'about', 'website', 'active']
         fields = '__all__'
 

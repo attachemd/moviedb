@@ -1,10 +1,10 @@
 from django.http import JsonResponse
 
-from core.models import Movie
+from core.models import WatchList
 
 
 def movie_list(request):
-    movies = Movie.objects.all()
+    movies = WatchList.objects.all()
     data = {
         'movies': list(movies.values())
     }
@@ -12,9 +12,9 @@ def movie_list(request):
 
 
 def movie_details(request, pk):
-    movie = Movie.objects.get(pk=pk)
+    movie = WatchList.objects.get(pk=pk)
     data = {
-        'name': movie.name,
+        'title': movie.title,
         'about': movie.about,
         'website': movie.website
     }
