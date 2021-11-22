@@ -1,10 +1,8 @@
-import os
-import django
 from django.core.management import BaseCommand
 from faker import Faker
 
 from django.contrib.auth.models import User
-from watchlist_app.models import Movie
+from core.models import Movie
 
 fakegen = Faker()
 

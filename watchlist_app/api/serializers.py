@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from watchlist_app.models import Movie
+from core.models import Movie
 
 
 class MovieSerializer(serializers.Serializer):
@@ -9,6 +9,14 @@ class MovieSerializer(serializers.Serializer):
     about = serializers.CharField()
     website = serializers.URLField()
     active = serializers.BooleanField()
+
+    # def validate_name(self, value):
+    #     """
+    #     Check that the blog post is about Django.
+    #     """
+    #     if not value:
+    #         raise serializers.ValidationError("The name field is empty.")
+    #     return value
 
     def create(self, validated_data):
         return Movie.objects.create(**validated_data)

@@ -1,6 +1,6 @@
 from django.http import JsonResponse
 
-from watchlist_app.models import Movie
+from core.models import Movie
 
 
 def movie_list(request):
