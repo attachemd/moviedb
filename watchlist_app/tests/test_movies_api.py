@@ -1,6 +1,5 @@
 from unittest import TestCase
-
-import factory
+from datetime import datetime
 from django.urls import reverse
 from faker import Faker
 from rest_framework.test import APIClient
@@ -8,6 +7,7 @@ from rest_framework import status
 
 from core.models import WatchList
 from watchlist_app.api.serializers import MovieSerializer
+from watchlist_app.tests.factories import WatchListFactory
 
 MOVIES_URL = reverse('movie_list')
 
@@ -19,28 +19,19 @@ def movie_url_pk(pk):
 faker = Faker()
 
 
-class WatchListFactory(factory.django.DjangoModelFactory):
-    class Meta:
-        model = WatchList
-
-    title = faker.company()
-    about = faker.sentence()
-    website = faker.url()
-    active = faker.boolean()
-
-
 VALID_WATCH_LIST = {
     'title': faker.company(),
     'about': faker.sentence(),
     'website': faker.url(),
     'active': faker.boolean(),
+    'created': datetime.now().strftime("%A, %d. %B %Y %I:%M%p")
 }
+
+print("VALID_WATCH_LIST: ")
+print(VALID_WATCH_LIST)
 
 INVALID_WATCH_LIST = {
     'title': '',
-    'about': faker.sentence(),
-    'website': faker.url(),
-    'active': faker.boolean(),
 }
 
 
