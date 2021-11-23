@@ -1,6 +1,9 @@
 from unittest import TestCase
 from datetime import datetime
+
+import django
 from django.urls import reverse
+from django.utils import timezone
 from faker import Faker
 from rest_framework.test import APIClient
 from rest_framework import status
@@ -24,7 +27,11 @@ VALID_WATCH_LIST = {
     'about': faker.sentence(),
     'website': faker.url(),
     'active': faker.boolean(),
-    'created': datetime.now().strftime("%A, %d. %B %Y %I:%M%p")
+    # 'created': datetime.now().strftime("%A, %d. %B %Y %I:%M%p")
+    # 'created': str(timezone.now())
+    # 'created': datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%fZ")
+    # 'created': datetime.now().strftime("%Y-%m-%d %H:%M[:%S[.uuuuuu]][TZ]")
+    # 'created': datetime.now().strftime("YYYY-MM-DD HH:MM[:ss[.uuuuuu]][TZ]")
 }
 
 print("VALID_WATCH_LIST: ")
@@ -56,7 +63,7 @@ class MoviesApiTests(TestCase):
     def test_create_movie_successful(self):
         """Test creating a new tag"""
 
-        self.client.post(MOVIES_URL, VALID_WATCH_LIST)
+        res = self.client.post(MOVIES_URL, VALID_WATCH_LIST)
 
         # exists = WatchList.objects.filter(
         #     title=VALID_WATCH_LIST['title'],
@@ -64,9 +71,18 @@ class MoviesApiTests(TestCase):
         #     website=VALID_WATCH_LIST['website'],
         #     active=VALID_WATCH_LIST['active'],
         # ).exists()
+        temp = WatchList.objects.filter(
+            **VALID_WATCH_LIST
+        )
+        print('res.data: ')
+        print(res.data)
+        print('VALID_WATCH_LIST after: ')
+        print(VALID_WATCH_LIST)
         exists = WatchList.objects.filter(
             **VALID_WATCH_LIST
         ).exists()
+        print('VALID_WATCH_LIST before: ')
+        print(VALID_WATCH_LIST)
         self.assertTrue(exists)
 
     def test_create_movie_invalid(self):
