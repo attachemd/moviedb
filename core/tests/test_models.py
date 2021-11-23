@@ -21,7 +21,7 @@ class ModelTests(TestCase):
         self.assertTrue(user.is_superuser)
         self.assertTrue(user.is_staff)
 
-    def test_tag_str(self):
+    def test_watchlist_str(self):
         """Test the movie string representation"""
-        movie = WatchListFactory()
-        self.assertEqual(str(movie), movie.title)
+        watch_list = WatchListFactory()
+        self.assertEqual(str(watch_list), watch_list.title)

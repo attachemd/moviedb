@@ -2,9 +2,17 @@ import factory
 from django.utils import timezone
 from faker import Faker
 from datetime import datetime
-from core.models import WatchListModel
+from core.models import WatchListModel, StreamPlatformModel
 
 faker = Faker()
+
+
+class StreamPlatformFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = StreamPlatformModel
+    name = faker.company()
+    about = faker.sentence()
+    website = faker.url()
 
 
 class WatchListFactory(factory.django.DjangoModelFactory):
@@ -12,6 +20,7 @@ class WatchListFactory(factory.django.DjangoModelFactory):
         model = WatchListModel
 
     title = faker.company()
+    platform = factory.SubFactory(StreamPlatformFactory)
     storyline = faker.sentence()
     website = faker.url()
     active = faker.boolean()
