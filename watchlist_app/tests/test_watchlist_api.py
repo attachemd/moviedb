@@ -8,8 +8,8 @@ from faker import Faker
 from rest_framework.test import APIClient
 from rest_framework import status
 
-from core.models import WatchList
-from watchlist_app.api.serializers import MovieSerializer
+from core.models import WatchListModel
+from watchlist_app.api.serializers import WatchListSerializer
 from watchlist_app.tests.factories import WatchListFactory
 
 MOVIES_URL = reverse('movie_list')
@@ -24,7 +24,7 @@ faker = Faker()
 
 VALID_WATCH_LIST = {
     'title': faker.company(),
-    'about': faker.sentence(),
+    'storyline': faker.sentence(),
     'website': faker.url(),
     'active': faker.boolean(),
     # 'created': datetime.now().strftime("%A, %d. %B %Y %I:%M%p")
@@ -33,9 +33,6 @@ VALID_WATCH_LIST = {
     # 'created': datetime.now().strftime("%Y-%m-%d %H:%M[:%S[.uuuuuu]][TZ]")
     # 'created': datetime.now().strftime("YYYY-MM-DD HH:MM[:ss[.uuuuuu]][TZ]")
 }
-
-print("VALID_WATCH_LIST: ")
-print(VALID_WATCH_LIST)
 
 INVALID_WATCH_LIST = {
     'title': '',
@@ -55,8 +52,8 @@ class MoviesApiTests(TestCase):
 
         res = self.client.get(MOVIES_URL)
 
-        movies = WatchList.objects.all()
-        serializer = MovieSerializer(movies, many=True)
+        movies = WatchListModel.objects.all()
+        serializer = WatchListSerializer(movies, many=True)
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(res.data, serializer.data)
 
@@ -71,18 +68,10 @@ class MoviesApiTests(TestCase):
         #     website=VALID_WATCH_LIST['website'],
         #     active=VALID_WATCH_LIST['active'],
         # ).exists()
-        temp = WatchList.objects.filter(
-            **VALID_WATCH_LIST
-        )
-        print('res.data: ')
-        print(res.data)
-        print('VALID_WATCH_LIST after: ')
-        print(VALID_WATCH_LIST)
-        exists = WatchList.objects.filter(
+
+        exists = WatchListModel.objects.filter(
             **VALID_WATCH_LIST
         ).exists()
-        print('VALID_WATCH_LIST before: ')
-        print(VALID_WATCH_LIST)
         self.assertTrue(exists)
 
     def test_create_movie_invalid(self):

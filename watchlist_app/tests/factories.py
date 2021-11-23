@@ -2,17 +2,17 @@ import factory
 from django.utils import timezone
 from faker import Faker
 from datetime import datetime
-from core.models import WatchList
+from core.models import WatchListModel
 
 faker = Faker()
 
 
 class WatchListFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = WatchList
+        model = WatchListModel
 
     title = faker.company()
-    about = faker.sentence()
+    storyline = faker.sentence()
     website = faker.url()
     active = faker.boolean()
     # created = datetime.now().strftime("%A, %d. %B %Y %I:%M%p")
