@@ -4,7 +4,7 @@ from django.core.management import BaseCommand
 from faker import Faker
 
 from django.contrib.auth.models import User
-from core.models import WatchListModel, StreamPlatformModel
+from core.models import WatchListModel, StreamPlatformModel, ReviewModel
 
 from colorama import Fore, Back, Style
 
@@ -33,6 +33,21 @@ def populate(N=5):
             platform=platform[0],
             website=fakegen.url(),
             storyline=fakegen.sentence(),
+            active=fakegen.boolean()
+        )[0]
+
+    for _ in range(N):
+        watch_list_id = random.randint(1, 20)
+        watch_list = WatchListModel.objects.filter(
+            id=watch_list_id
+        )
+        # print(Fore.BLACK + Back.YELLOW + "platform[0] :" + Style.RESET_ALL)
+        # print(platform[0])
+        # create new movie entry
+        review = ReviewModel.objects.get_or_create(
+            rating=random.randint(1, 5),
+            watchlist=watch_list[0],
+            description=fakegen.text(),
             active=fakegen.boolean()
         )[0]
 

@@ -1,3 +1,8 @@
+import reviews as reviews
 from django.contrib import admin
 
-# Register your models here.
+from core.models import WatchListModel, StreamPlatformModel, ReviewModel
+
+admin.site.register(WatchListModel)
+admin.site.register(StreamPlatformModel)
+admin.site.register(ReviewModel)

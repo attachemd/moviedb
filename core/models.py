@@ -27,7 +27,7 @@ class WatchListModel(models.Model):
         return self.title
 
 
-class Review(models.Model):
+class ReviewModel(models.Model):
     watchlist = models.ForeignKey(
         WatchListModel,
         on_delete=models.CASCADE,
@@ -40,4 +40,4 @@ class Review(models.Model):
     active = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.rating
+        return str(self.rating) + ' - ' + self.watchlist.title
