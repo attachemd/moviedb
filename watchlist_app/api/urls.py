@@ -8,4 +8,5 @@ urlpatterns = [
     path('list/', views.WatchListView.as_view(), name='movie_list'),
     path('list/<int:pk>', views.WatchDetail.as_view(), name='movie_detail'),
     path('stream/', views.StreamPlatformView.as_view(), name='stream'),
+    path('stream/<int:pk>', views.StreamPlatformDetailView.as_view(), name='stream_detail'),
 ]

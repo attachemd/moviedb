@@ -28,11 +28,10 @@ class StreamPlatformView(APIView):
 
 
 class StreamPlatformDetailView(APIView):
-
     def get(self, request, pk):
         try:
             stream_platform = StreamPlatformModel.objects.get(pk=pk)
-            serializer = WatchListSerializer(stream_platform)
+            serializer = StreamPlatformSerializer(stream_platform)
             return Response(serializer.data)
         except StreamPlatformModel.DoesNotExist:
             return Response(
@@ -42,7 +41,7 @@ class StreamPlatformDetailView(APIView):
 
     def put(self, request, pk):
         stream_platform = StreamPlatformModel.objects.get(pk=pk)
-        serializer = WatchListSerializer(
+        serializer = StreamPlatformSerializer(
             stream_platform,
             data=request.data
         )

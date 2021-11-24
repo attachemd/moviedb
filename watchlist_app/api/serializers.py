@@ -3,16 +3,19 @@ from rest_framework import serializers
 from core.models import WatchListModel, StreamPlatformModel
 
 
-class StreamPlatformSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = StreamPlatformModel
-        fields = '__all__'
-
-
 class WatchListSerializer(serializers.ModelSerializer):
     class Meta:
         model = WatchListModel
         # fields = ['id', 'name', 'about', 'website', 'active']
+        fields = '__all__'
+
+
+class StreamPlatformSerializer(serializers.ModelSerializer):
+    watchlist = WatchListSerializer(many=True, read_only=True)
+    # watchlist = serializers.StringRelatedField(many=True)
+
+    class Meta:
+        model = StreamPlatformModel
         fields = '__all__'
 
 # class MovieSerializer(serializers.Serializer):
