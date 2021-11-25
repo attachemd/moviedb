@@ -18,6 +18,9 @@ class ReviewCreateView(
 ):
     serializer_class = ReviewSerializer
 
+    def get_queryset(self):
+        return ReviewModel.objects.all()
+
     def perform_create(self, serializer):
         pk = self.kwargs['pk']
         watchlist = WatchListModel.objects.get(pk=pk)
