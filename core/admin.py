@@ -1,4 +1,3 @@
-import reviews as reviews
 from django.contrib import admin
 
 from core.models import WatchListModel, StreamPlatformModel, ReviewModel
