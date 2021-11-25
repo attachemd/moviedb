@@ -12,6 +12,7 @@ fakegen = Faker()
 
 
 def populate(N=5):
+    user = User.objects.get(username__iexact='me')
     for _ in range(20):
         # create new movie entry
         platform = StreamPlatformModel.objects.get_or_create(
@@ -46,6 +47,7 @@ def populate(N=5):
         # create new movie entry
         review = ReviewModel.objects.get_or_create(
             rating=random.randint(1, 5),
+            user=user,
             watchlist=watch_list[0],
             description=fakegen.text(),
             active=fakegen.boolean()

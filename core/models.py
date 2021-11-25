@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 
@@ -28,6 +29,7 @@ class WatchListModel(models.Model):
 
 
 class ReviewModel(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     watchlist = models.ForeignKey(
         WatchListModel,
         on_delete=models.CASCADE,
