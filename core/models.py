@@ -22,6 +22,8 @@ class WatchListModel(models.Model):
     storyline = models.CharField(max_length=150)
     website = models.URLField(max_length=100)
     active = models.BooleanField(default=True)
+    avg_rating = models.FloatField(default=0)
+    num_rating = models.IntegerField(default=0)
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

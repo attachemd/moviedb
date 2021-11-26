@@ -39,16 +39,24 @@ def populate(N=5):
 
     for _ in range(N):
         watch_list_id = random.randint(1, 20)
-        watch_list = WatchListModel.objects.filter(
+        watchlist = WatchListModel.objects.filter(
             id=watch_list_id
-        )
+        )[0]
+        rating = random.randint(1, 5)
         # print(Fore.BLACK + Back.YELLOW + "platform[0] :" + Style.RESET_ALL)
         # print(platform[0])
         # create new movie entry
+        if watchlist.num_rating == 0:
+            watchlist.avg_rating = rating
+        else:
+            watchlist.avg_rating = (watchlist.avg_rating + rating)/2
+
+        watchlist.num_rating = watchlist.num_rating + 1
+        watchlist.save()
         review = ReviewModel.objects.get_or_create(
-            rating=random.randint(1, 5),
+            rating=rating,
             user=user,
-            watchlist=watch_list[0],
+            watchlist=watchlist,
             description=fakegen.text(),
             active=fakegen.boolean()
         )[0]
@@ -64,6 +72,7 @@ def create_super_user():
 
 
 def populate_user(N=5):
+    User.objects.create_user('sli', password='sli', email='sli@example.com')
     for _ in range(N):
         name = fakegen.name()
         first_name = name.split(' ')[0]
