@@ -25,15 +25,20 @@ class ReviewCreateView(
         pk = self.kwargs['pk']
         watchlist = WatchListModel.objects.get(pk=pk)
         user = self.request.user
-        review_queryset = ReviewModel.objects.filter(watchlist=watchlist, user=user)
+        review_queryset = ReviewModel.objects.filter(
+            watchlist=watchlist,
+            user=user
+        )
 
         if review_queryset.exists():
-            raise ValidationError('you are already reviewed this movie.')
+            raise ValidationError(
+                'you are already reviewed this movie.'
+            )
 
         if watchlist.num_rating == 0:
             watchlist.avg_rating = serializer.validated_data['rating']
         else:
-            watchlist.avg_rating = (watchlist.avg_rating + serializer.validated_data['rating'])/2
+            watchlist.avg_rating = (watchlist.avg_rating + serializer.validated_data['rating']) / 2
 
         watchlist.num_rating = watchlist.num_rating + 1
         watchlist.save()

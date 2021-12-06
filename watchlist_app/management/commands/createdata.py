@@ -26,7 +26,12 @@ def populate(N=5):
         platform = StreamPlatformModel.objects.filter(
             id=stream_platform_id
         )
-        # print(Fore.BLACK + Back.YELLOW + "platform[0] :" + Style.RESET_ALL)
+        # print(
+        # Fore.BLACK +
+        # Back.YELLOW +
+        # "platform[0] :" +
+        # Style.RESET_ALL
+        # )
         # print(platform[0])
         # create new movie entry
         movie = WatchListModel.objects.get_or_create(
@@ -43,13 +48,21 @@ def populate(N=5):
             id=watch_list_id
         )[0]
         rating = random.randint(1, 5)
-        # print(Fore.BLACK + Back.YELLOW + "platform[0] :" + Style.RESET_ALL)
+        # print(
+        # Fore.BLACK +
+        # Back.YELLOW +
+        # "platform[0] :" +
+        # Style.RESET_ALL
+        # )
         # print(platform[0])
         # create new movie entry
         if watchlist.num_rating == 0:
             watchlist.avg_rating = rating
         else:
-            watchlist.avg_rating = (watchlist.avg_rating + rating)/2
+            watchlist.avg_rating = (
+                                           watchlist.avg_rating +
+                                           rating
+                                   ) / 2
 
         watchlist.num_rating = watchlist.num_rating + 1
         watchlist.save()
@@ -72,18 +85,38 @@ def create_super_user():
 
 
 def populate_user(N=5):
-    User.objects.create_user('sli', password='sli', email='sli@example.com')
+    User.objects.create_user(
+        'sli',
+        password='sli',
+        email='sli@example.com'
+    )
     for _ in range(N):
         name = fakegen.name()
         first_name = name.split(' ')[0]
         last_name = ' '.join(name.split(' ')[-1:])
-        username = first_name[0].lower() + last_name.lower().replace(' ', '')
-        user = User.objects.create_user(username, password=username)
+
+        username = (
+                first_name[0].lower() +
+                last_name
+                .lower()
+                .replace(' ', '')
+        )
+        user = User.objects.create_user(
+            username,
+            password=username
+        )
         user.first_name = first_name
         user.last_name = last_name
         user.is_superuser = False
         user.is_staff = False
-        user.email = username + "@" + last_name.lower() + ".com"
+
+        user.email = (
+                username +
+                "@" +
+                last_name.lower() +
+                ".com"
+        )
+
         user.save()
 
 
